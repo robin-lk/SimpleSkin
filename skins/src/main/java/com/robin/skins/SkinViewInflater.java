@@ -63,9 +63,9 @@ public class SkinViewInflater {
 
         // We can emulate Lollipop's android:theme attribute propagating down the view hierarchy
         // by using the parent's context
-        if (inheritContext && parent != null) {
-            context = parent.getContext();
-        }
+//        if (inheritContext && parent != null) {
+//            context = parent.getContext();
+//        }
         if (readAndroidTheme || readAppTheme) {
             // We then apply the theme on the context, if specified
             context = themifyContext(context, attrs, readAndroidTheme, readAppTheme);
@@ -143,7 +143,7 @@ public class SkinViewInflater {
                 view = createView(context, name, attrs);
         }
 
-        if (view == null && originalContext != context) {
+        if (view == null) {
             // If the original context does not equal our themed context, then we need to manually
             // inflate it using the name so that android:theme takes effect.
             view = createViewFromTag(context, name, attrs);

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 
@@ -38,6 +39,7 @@ public class SkinLoader {
             addAssetPath.invoke(assetManager, skinPath);
             //得到了资源包里面的资源对象
             skinResources = new Resources(assetManager, context.getResources().getDisplayMetrics(), context.getResources().getConfiguration());
+            Log.i("skin", "皮肤加载成功");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
