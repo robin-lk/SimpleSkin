@@ -2,9 +2,13 @@ package com.robin.skins;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.core.view.LayoutInflaterCompat;
 
@@ -84,5 +88,29 @@ public class SkinManager {
         if (identifier == 0) return null;
         return skinLoader.skinResources.getDrawable(id, null);
     }
+
+    //去色 灰度处理
+    public void onGreyLayout(Activity activity, boolean blackColor) {
+        if (blackColor) {
+            Paint paint = new Paint();
+            ColorMatrix cm = new ColorMatrix();
+            cm.setSaturation(0);
+            paint.setColorFilter(new ColorMatrixColorFilter(cm));
+            activity.getWindow().getDecorView().setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+        }
+    }
+
+    public void onGreyLayout(View... views) {
+        if (views == null || views.length == 0) return;
+        for (View view : views) {
+            if (view == null) continue;
+            Paint paint = new Paint();
+            ColorMatrix cm = new ColorMatrix();
+            cm.setSaturation(0);
+            paint.setColorFilter(new ColorMatrixColorFilter(cm));
+            view.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+        }
+    }
+
 
 }
