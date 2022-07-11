@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newUi(View view) {
-        startActivity(new Intent(this, SecondActivity.class));
+//        startActivity(new Intent(this, SecondActivity.class));
 //        File externalCacheDir = getExternalCacheDir();
 //        SkinManager.getInstance().loaderApkRes(new File(externalCacheDir,"app-debug.apk").toString());
-//        SkinManager.getInstance().apply();
+        SkinManager.getInstance().recovery();
     }
 
 }

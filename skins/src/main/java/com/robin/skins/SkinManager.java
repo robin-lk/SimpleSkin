@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class SkinManager {
     private static SkinManager sm;
-    private Context context;
+    public Context context;
     public SkinLoader skinLoader;
     //及时换肤
     public boolean changeNow;
@@ -71,6 +71,16 @@ public class SkinManager {
         }
     }
 
+    public void recovery() {
+        if (skinUi.size() > 0) {
+            for (Activity activity : skinUi.keySet()) {
+                SkinWidget skinWidget = skinUi.get(activity);
+                if (activity != null && skinWidget != null)
+                    skinWidget.recovery();
+            }
+        }
+    }
+
     public int getColor(int id) {
         if (context == null || skinLoader == null) return 0;
         String resourceTypeName = context.getResources().getResourceTypeName(id);
@@ -87,6 +97,16 @@ public class SkinManager {
         int identifier = skinLoader.skinResources.getIdentifier(resourceName, resourceTypeName, skinLoader.skinPackage);
         if (identifier == 0) return null;
         return skinLoader.skinResources.getDrawable(id, null);
+    }
+
+    public int getDefaultColor(int id) {
+        if (context == null) return 0;
+        return context.getResources().getColor(id);
+    }
+
+    public Drawable getDefaultDrawable(int id) {
+        if (context == null) return null;
+        return context.getResources().getDrawable(id);
     }
 
     //去色 灰度处理

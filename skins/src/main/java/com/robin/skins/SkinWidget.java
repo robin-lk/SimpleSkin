@@ -58,4 +58,37 @@ public class SkinWidget {
             }
     }
 
+    /**
+     * 恢复
+     */
+    public void recovery() {
+        if (SkinManager.getInstance().context != null)
+            for (View view : map.keySet()) {
+                List<SkinRes> skinRes = map.get(view);
+                if (skinRes != null)
+                    for (SkinRes res : skinRes) {
+                        if (res.attrName.equalsIgnoreCase("background")) {
+                            if (res.resType.equalsIgnoreCase("color")) {
+                                int color = SkinManager.getInstance().getDefaultColor(res.resId);
+                                if (color != 0)
+                                    view.setBackgroundColor(color);
+                            } else if (res.resType.equalsIgnoreCase("drawable") || res.resType.equalsIgnoreCase("mipmap")) {
+                                Drawable drawable = SkinManager.getInstance().getDefaultDrawable(res.resId);
+                                if (drawable != null)
+                                    view.setBackground(drawable);
+                            }
+                        } else if (res.attrName.equalsIgnoreCase("src")) {
+                            Drawable drawable = SkinManager.getInstance().getDefaultDrawable(res.resId);
+                            if (drawable != null)
+                                ((ImageView) view).setImageDrawable(drawable);
+                        } else if (res.attrName.equalsIgnoreCase("textColor")) {
+                            int color = SkinManager.getInstance().getDefaultColor(res.resId);
+                            if (color != 0)
+                                ((TextView) view).setTextColor(color);
+                        }
+                    }
+            }
+    }
+
+
 }
