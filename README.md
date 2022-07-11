@@ -39,3 +39,14 @@ public class Activity{
 
 }
 ``` 
+```text
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+	dependencies {
+	        implementation 'com.github.robin-lk:SimpleSkin:V0.5.0'
+	}
+```
