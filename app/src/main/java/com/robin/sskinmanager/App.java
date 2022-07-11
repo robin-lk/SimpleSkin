@@ -17,6 +17,5 @@ public class App extends Application {
         if (file.exists()) {
             SkinManager.getInstance().init(this, file.exists()).loaderApkRes(file.toString());
         }
-
     }
 }
