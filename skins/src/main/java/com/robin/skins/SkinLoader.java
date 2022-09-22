@@ -30,6 +30,7 @@ public class SkinLoader {
         PackageManager packageManager = context.getPackageManager();
         PackageInfo packageArchiveInfo = packageManager.getPackageArchiveInfo(skinPath, PackageManager.GET_ACTIVITIES);
         //皮肤所在的包名
+        if (packageArchiveInfo == null) return false;
         skinPackage = packageArchiveInfo.packageName;
         try {
             //通过反射获取assetManager对象

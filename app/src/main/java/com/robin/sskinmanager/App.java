@@ -14,12 +14,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         File file = new File(getExternalCacheDir(), "app-debug.apk");
-        if (file.exists()) {
-            SkinManager
-                    .getInstance()
-                    .init(this, file.exists())
-                    .appendFontSize(2)
-                    .loaderApkRes(file.toString());
-        }
+        SkinManager
+                .getInstance()
+                .init(this, true)
+                .appendFontSize(12)
+                .loaderApkRes("ww");
     }
 }
