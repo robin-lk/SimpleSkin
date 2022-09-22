@@ -47,6 +47,6 @@ public class Activity{
 		}
 	}
 	dependencies {
-	        implementation 'com.github.robin-lk:SimpleSkin:V0.5.0'
+	        implementation 'com.github.robin-lk:SimpleSkin:0.5.1'
 	}
 ```
