@@ -4,8 +4,17 @@ import android.graphics.drawable.Drawable;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Map;
@@ -54,6 +63,8 @@ public class SkinWidget {
                     int color = SkinManager.getInstance().getColor(res.resId);
                     if (color != 0)
                         ((TextView) view).setTextColor(color);
+                } else if (res.attrName.equalsIgnoreCase("textSize")) {
+                    setTextSize(view, res);
                 }
             }
     }
@@ -90,5 +101,47 @@ public class SkinWidget {
             }
     }
 
-
+    //设置字体
+    private void setTextSize(View view, SkinRes skinRes) {
+        if (view == null || skinRes == null) return;
+        switch (skinRes.viewName) {
+            case "TextView":
+                ((TextView) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "Button":
+                ((Button) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "MaterialButton":
+            case "com.google.android.material.button.MaterialButton":
+                ((MaterialButton) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "RadioButton":
+                ((RadioButton) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "CheckedTextView":
+                ((CheckedTextView) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "AutoCompleteTextView":
+                ((AutoCompleteTextView) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "CheckBox":
+                ((CheckBox) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "MaterialTextView":
+            case "com.google.android.material.textview.MaterialTextView":
+                ((MaterialTextView) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            case "MaterialCheckBox":
+            case "com.google.android.material.checkbox.MaterialCheckBox":
+                ((MaterialCheckBox) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                break;
+            default:
+                try {
+                    ((TextView) view).setTextSize(skinRes.getTextSizeType(), SkinManager.getInstance().getTextSize(skinRes.textSize));
+                } catch (Exception e) {
+                    Log.e("shins", e.toString());
+                }
+                break;
+        }
+    }
 }

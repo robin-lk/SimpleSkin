@@ -15,7 +15,11 @@ public class App extends Application {
         super.onCreate();
         File file = new File(getExternalCacheDir(), "app-debug.apk");
         if (file.exists()) {
-            SkinManager.getInstance().init(this, file.exists()).loaderApkRes(file.toString());
+            SkinManager
+                    .getInstance()
+                    .init(this, file.exists())
+                    .appendFontSize(2)
+                    .loaderApkRes(file.toString());
         }
     }
 }

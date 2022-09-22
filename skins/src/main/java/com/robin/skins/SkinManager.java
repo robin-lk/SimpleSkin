@@ -10,8 +10,10 @@ import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.LayoutInflaterCompat;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -23,6 +25,8 @@ public class SkinManager {
     public SkinLoader skinLoader;
     //及时换肤
     public boolean changeNow;
+    //追加字体大小
+    private float appendSize = 0;
 
     private final Map<Activity, SkinWidget> skinUi = new ArrayMap<>();
 
@@ -31,12 +35,20 @@ public class SkinManager {
         return sm;
     }
 
+    //初始化
     public SkinManager init(Context context, boolean changeNow) {
         this.changeNow = changeNow;
         this.context = context;
         skinUi.clear();
         return getInstance();
     }
+
+    //追加字体大小
+    public SkinManager appendFontSize(float size) {
+        appendSize = size;
+        return getInstance();
+    }
+
 
     public boolean loaderApkRes(String apkPath) {
         if (skinLoader == null) skinLoader = new SkinLoader();
@@ -48,11 +60,19 @@ public class SkinManager {
 
     public void addUI(Activity activity) {
         if (activity != null) {
-            SkinFactory skinFactory = new SkinFactory();
+            SkinFactory skinFactory = new SkinFactory(false);
             LayoutInflaterCompat.setFactory2(LayoutInflater.from(activity), skinFactory);
             if (skinFactory.skinWidget != null)
                 skinUi.put(activity, skinFactory.skinWidget);
+        }
+    }
 
+    public void addUI(boolean onlyTextSize, Activity activity) {
+        if (activity != null) {
+            SkinFactory skinFactory = new SkinFactory(onlyTextSize);
+            LayoutInflaterCompat.setFactory2(LayoutInflater.from(activity), skinFactory);
+            if (skinFactory.skinWidget != null)
+                skinUi.put(activity, skinFactory.skinWidget);
         }
     }
 
@@ -96,7 +116,7 @@ public class SkinManager {
         String resourceName = context.getResources().getResourceEntryName(id);
         int identifier = skinLoader.skinResources.getIdentifier(resourceName, resourceTypeName, skinLoader.skinPackage);
         if (identifier == 0) return null;
-        return skinLoader.skinResources.getDrawable(id, null);
+        return ResourcesCompat.getDrawable(skinLoader.skinResources, id, null);
     }
 
     public int getDefaultColor(int id) {
@@ -106,8 +126,13 @@ public class SkinManager {
 
     public Drawable getDefaultDrawable(int id) {
         if (context == null) return null;
-        return context.getResources().getDrawable(id);
+        return ResourcesCompat.getDrawable(context.getResources(), id, context.getTheme());
     }
+
+    public float getTextSize(float xmlTextSize) {
+        return new BigDecimal(appendSize).add(new BigDecimal(xmlTextSize)).floatValue();
+    }
+
 
     //去色 灰度处理
     public void onGreyLayout(Activity activity, boolean blackColor) {

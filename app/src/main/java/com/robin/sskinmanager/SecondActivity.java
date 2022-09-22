@@ -10,7 +10,7 @@ public class SecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SkinManager.getInstance().addUI(this);
+        SkinManager.getInstance().addUI(true,this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
     }
