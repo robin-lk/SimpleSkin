@@ -17,7 +17,7 @@ public class App extends Application {
         SkinManager
                 .getInstance()
                 .init(this, true)
-                .appendFontSize(12)
-                .loaderApkRes("ww");
+                .appendFontSize(22)
+                ;
     }
 }

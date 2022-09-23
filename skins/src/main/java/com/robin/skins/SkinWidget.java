@@ -24,13 +24,21 @@ import java.util.Map;
  */
 public class SkinWidget {
     Map<View, List<SkinRes>> map = new ArrayMap<>();
+    private boolean onlyTextSize = false;
+
+    public void setOnlyTextSize(boolean onlyTextSize) {
+        this.onlyTextSize = onlyTextSize;
+    }
 
     public void addWidget(View view, List<SkinRes> skinRes) {
         if (view != null && skinRes != null && skinRes.size() > 0) {
             map.put(view, skinRes);
             //需要及时换肤
-            if (SkinManager.getInstance().changeNow && SkinManager.getInstance().skinLoader != null)
+            if (SkinManager.getInstance().changeNow && onlyTextSize) {
+                applyTextSize(view, skinRes);
+            } else if (SkinManager.getInstance().changeNow && SkinManager.getInstance().skinLoader != null) {
                 apply(view, skinRes);
+            }
         }
     }
 
@@ -67,6 +75,14 @@ public class SkinWidget {
                     setTextSize(view, res);
                 }
             }
+    }
+
+    private void applyTextSize(View view, List<SkinRes> skinRes) {
+        for (SkinRes res : skinRes) {
+            if (res.attrName.equalsIgnoreCase("textSize")) {
+                setTextSize(view, res);
+            }
+        }
     }
 
     /**

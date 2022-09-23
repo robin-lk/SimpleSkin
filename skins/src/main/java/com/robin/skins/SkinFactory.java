@@ -2,7 +2,6 @@ package com.robin.skins;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -24,6 +23,7 @@ public class SkinFactory implements LayoutInflater.Factory2 {
     public SkinFactory(boolean onlyTextSize) {
         skinWidget = new SkinWidget();
         this.onlyTextSize = onlyTextSize;
+        skinWidget.setOnlyTextSize(onlyTextSize);
     }
 
     @Nullable

@@ -3,12 +3,14 @@ package com.robin.sskinmanager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.LayoutInflaterCompat;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.robin.skins.SkinFactory;
 import com.robin.skins.SkinManager;
@@ -27,10 +29,18 @@ public class MainActivity extends AppCompatActivity {
         SkinManager.getInstance().addUI(true,this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fg, SkinFragment.newInstance("", ""))
-                .commitAllowingStateLoss();
+        findViewById(R.id.tv).setOnClickListener(v -> {
+            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+        });
+        findViewById(R.id.tv).setOnLongClickListener(v -> {
+            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
+            return true;
+        });
+
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fg, SkinFragment.newInstance("", ""))
+//                .commitAllowingStateLoss();
 //        InputStream is = getClass().getResourceAsStream("/assets/" + "app-debug.apk");
 //        File externalCacheDir = getExternalCacheDir();
 //        Log.e("file", String.valueOf(externalCacheDir.exists()));
